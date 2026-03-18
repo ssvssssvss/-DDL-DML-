@@ -1,98 +1,79 @@
-# Домашнее задание к занятию "Система мониторинга Zabbix" - `Грекова Иоланта`
-      - для корректного добавления скриншотов воспользуйтесь [инструкцией "Как вставить скриншот в шаблон с решением](https://github.com/netology-code/sys-pattern-homework/blob/main/screen-instruction.md)
-      - при оформлении используйте возможности языка разметки md (коротко об этом можно посмотреть в [инструкции  по MarkDown](https://github.com/netology-code/sys-pattern-homework/blob/main/md-instruction.md))
-   4. После завершения работы над домашним заданием сделайте коммит (`git commit -m "comment"`) и отправьте его на Github (`git push origin`);
-   5. Для проверки домашнего задания преподавателем в личном кабинете прикрепите и отправьте ссылку на решение в виде md-файла в вашем Github.
+Домашнее задание к занятию «Уязвимости и атаки на информационные системы». Грекова Иоланта 
 
-### Задание 1
+**Задание 1**
+*Скачайте и установите виртуальную машину Metasploitable: https://sourceforge.net/projects/metasploitable/.*
 
-Успешный вход в веб-интерфейс Zabbix с учетными данными Admin/zabbix:
+*Это типовая ОС для экспериментов в области информационной безопасности, с которой следует начать при анализе уязвимостей.*
 
-`При необходимости прикрепитe сюда скриншоты
-![Zabbix login](/home/ssvssssvss/Система мониторинга Zabbix/zabbix_login.png)`
+*Просканируйте эту виртуальную машину, используя nmap.*
 
-Пошаговое выполнение второго задания. В моем случае все настройки производятся внутри docker контейнера, поэтому может немного отличаться от команд из лекций.
-1. sudo apt update
-2. mkdir -p ~/zabbix-docker #создание директории для проекта
-3. cd ~/zabbix-docker
-4. sudo nano docker-compose.yml #создание файла docker-compose
-5. docker compose up -d
-6. docker compose ps #проверка статуса контейнера
+*Попробуйте найти уязвимости, которым подвержена эта виртуальная машина.*
 
-Настройка доступа к веб-интерфейсу:
-URL: http://localhost:8080
-Логин: Admin
-Пароль: zabbix
+*Сами уязвимости можно поискать на сайте https://www.exploit-db.com/.*
 
-**Примечания**
-Все компоненты запущены в Docker контейнерах
-Используется PostgreSQL 15 в качестве базы данных
-Версия Zabbix: 7.2 LTS
-Веб-сервер: Apache с PHP
+*Для этого нужно в поиске ввести название сетевой службы, обнаруженной на атакуемой машине, и выбрать подходящие по версии уязвимости.*
+
+**Ответ:**
+
+*Какие сетевые службы в ней разрешены?*
+
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp         vsftpd 2.3.4
+22/tcp   open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+23/tcp   open  telnet      Linux telnetd
+25/tcp   open  smtp        Postfix smtpd
+53/tcp   open  domain      ISC BIND 9.4.2
+80/tcp   open  http        Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+111/tcp  open  rpcbind     2 (RPC #100000)
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+512/tcp  open  exec        netkit-rsh rexecd
+513/tcp  open  login       OpenBSD or Solaris rlogind
+514/tcp  open  tcpwrapped
+1099/tcp open  java-rmi    GNU Classpath grmiregistry
+1524/tcp open  bindshell   Metasploitable root shell
+2049/tcp open  nfs         2-4 (RPC #100003)
+2121/tcp open  ftp         ProFTPD 1.3.1
+3306/tcp open  mysql       MySQL 5.0.51a-3ubuntu5
+5432/tcp open  postgresql  PostgreSQL DB 8.3.0 - 8.3.7
+5900/tcp open  vnc         VNC (protocol 3.3): уязвимость Vino VNC Server 3.7.3 - Persistent Denial of Service DoS
+6000/tcp open  X11         (access denied)
+6667/tcp open  irc         UnrealIRCd
+8009/tcp open  ajp13       Apache Jserv (Protocol v1.3)
+8180/tcp open  http        Apache Tomcat/Coyote JSP engine 1.1
+MAC Address: 08:00:27:0D:83:44 (Oracle VirtualBox virtual NIC)
+Service Info: Hosts:  metasploitable.localdomain, irc.Metasploitable.LAN; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 
 
-### Задание 2
-Приложите скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу.
-![Zabbix hosts](/home/ssvssssvss/Система мониторинга Zabbix/hosts.png)`
-Приложите в файл README.md скриншот лога zabbix agent, где видно, что он работает с сервером.
-![VM metrics](/home/ssvssssvss/Система мониторинга Zabbix/metrics.png)`
-Приложите в файл README.md текст использованных команд в GitHub.
+*Какие уязвимости были вами обнаружены? (список со ссылками: достаточно трёх уязвимостей)*
+rpcbind: 
+RPCBind / libtirpc - Denial of Service: https://www.exploit-db.com/exploits/41974
+rpcbind - CALLIT procedure UDP Crash (PoC): https://www.exploit-db.com/exploits/26887
 
-VM1 — установка Zabbix Server
-sudo apt update
-sudo apt upgrade -y
+postgresql:
+PostgreSQL 8.3.6 - Conversion Encoding Remote Denial of Service: https://www.exploit-db.com/exploits/32849
+PostgreSQL 8.2/8.3/8.4 - UDF for Command Execution: https://www.exploit-db.com/exploits/7855
 
-wget https://repo.zabbix.com/zabbix/6.4/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.4-1+ubuntu22.04_all.deb
-sudo dpkg -i zabbix-release_6.4-1+ubuntu22.04_all.deb
-sudo apt update
-sudo apt install zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent mysql-server -y
+vnc: Vino VNC Server 3.7.3 - Persistent Denial of Service: https://www.exploit-db.com/exploits/28338
 
-Настройка базы данных
-sudo mysql
-CREATE DATABASE zabbix CHARACTER SET utf8mb4 COLLATE utf8mb4_bin;
-CREATE USER 'zabbix'@'localhost' IDENTIFIED BY 'zabbixpass';
-GRANT ALL PRIVILEGES ON zabbix.* TO 'zabbix'@'localhost';
-SET GLOBAL log_bin_trust_function_creators = 1;
-EXIT;
-sudo zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql -uzabbix -p zabbix
+irc: 
+UnrealIRCd 3.2.8.1 - Backdoor Command Execution (Metasploit): https://www.exploit-db.com/exploits/16922
+UnrealIRCd 3.2.8.1 - Remote Downloader/Execute: https://www.exploit-db.com/exploits/13853
 
-Настройка Zabbix Server
-sudo nano /etc/zabbix/zabbix_server.conf
-DBPassword=zabbixpass
+**Задание 2**
+*Проведите сканирование Metasploitable в режимах SYN, FIN, Xmas, UDP.*
 
-sudo systemctl restart zabbix-server
-sudo systemctl restart apache2
-sudo systemctl restart zabbix-agent
+*Запишите сеансы сканирования в Wireshark.*
 
-sudo systemctl enable zabbix-server
-sudo systemctl enable apache2
-sudo systemctl enable zabbix-agent
+*Ответьте на следующие вопросы:*
 
-VM2 — установка Zabbix Agent
+**Ответы**
+*Чем отличаются эти режимы сканирования с точки зрения сетевого трафика?*
+Различные режимы сканирования отличаются типами отправляемых пакетов и реакцией целевой системы.
+Различия между режимами сканирования заключаются в используемых типах пакетов и способах интерпретации ответа: наличие ответа (SYN-ACK, RST, ICMP) или его отсутствие.
 
-sudo apt update
-sudo apt install zabbix-agent -y
-
-Настройка агента
-sudo nano /etc/zabbix/zabbix_agentd.conf
-Server=192.168.1.27
-ServerActive=192.168.1.27
-Hostname=host2
-
-sudo systemctl restart zabbix-agent
-sudo systemctl enable zabbix-agent
-
-Проверка работы агента
-sudo apt install zabbix-get -y
-zabbix_get -s 192.168.1.28 -k system.hostname
-Ответ:
-vm-gold-ubuntu-22
-
-Проверка лога агента
-sudo tail -n 30 /var/log/zabbix/zabbix_agentd.log
-Проверка порта агента
-ss -tulpn | grep 10050
-Проверка данных в Zabbix
-В веб-интерфейсе:
-Configuration → Hosts
-Monitoring → Latest data
+*Как отвечает сервер?*
+UDP-сканирование отправляет UDP-пакеты. Закрытые порты отвечают ICMP-сообщением «Destination Unreachable (Port Unreachable)», а открытые порты не отвечают.
+Xmas-сканирование использует TCP-пакеты с флагами FIN, PSH и URG. Поведение аналогично FIN: открытые порты не отвечают, закрытые отправляют RST.
+FIN-сканирование отправляет TCP-пакеты с флагом FIN. Открытые порты игнорируют такие пакеты, а закрытые отвечают RST.
+SYN-сканирование использует TCP-пакеты с флагом SYN. Открытые порты отвечают SYN-ACK, после чего сканер отправляет RST, не завершая соединение. Закрытые порты отвечают RST.
