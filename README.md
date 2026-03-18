@@ -7,7 +7,7 @@
 *В качестве ответа пришлите снимки экрана домашнего каталога пользователя с исходными и зашифрованными данными.*
 
 **Ответ**
-![Скриншот зашифрованного и дешифрованного каталога](https://github.com/ssvssssvss/-DDL-DML-/blob/hostsecurity/cryptouser.jpg)
+![Скриншот зашифрованного и дешифрованного каталога](https://github.com/ssvssssvss/-DDL-DML-/blob/main/cryptouser.PNG)
 
 **Задание 2**
 *Установите поддержку LUKS.*
@@ -17,5 +17,5 @@
 
 **Ответ**
 На скриншотах попали небольшие опечатки :(
-![Скриншот выполненных команд 1](https://github.com/ssvssssvss/-DDL-DML-/blob/hostsecurity/luks.jpg)
-![Скриншот выполненных команд 2](https://github.com/ssvssssvss/-DDL-DML-/blob/hostsecurity/luks2.jpg)
+![Скриншот выполненных команд 1](https://github.com/ssvssssvss/-DDL-DML-/blob/main/luks.PNG)
+![Скриншот выполненных команд 2](https://github.com/ssvssssvss/-DDL-DML-/blob/main/luks2.PNG)
