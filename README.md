@@ -17,7 +17,7 @@
 Приведите скриншот systemctl status memcached, где будет видно, что memcached запущен.
 
 **Ответ**
-![Memcached запущен](https://github.com/username/reponame/blob/branch/path/image.png)
+![Memcached запущен](https://github.com/ssvssssvss/-DDL-DML-/blob/redis/memcached.PNG)
 
 **Задание 3. Удаление по TTL в Memcached**
 Запишите в memcached несколько ключей с любыми именами и значениями, для которых выставлен TTL 5.
@@ -25,11 +25,11 @@
 
 **Ответ**
 Выставляла знание 10 секунд, так как за 5 не успевала сделать вывод ключа.
-![Ключи memcached](https://github.com/username/reponame/blob/branch/path/image.png)
+![Ключи memcached](https://github.com/ssvssssvss/-DDL-DML-/blob/redis/keys.PNG)
 
 **Задание 4. Запись данных в Redis**
 Запишите в Redis несколько ключей с любыми именами и значениями.
 Через redis-cli достаньте все записанные ключи и значения из базы, приведите скриншот этой операции.
 
 **Ответ**
-![Redis](https://github.com/username/reponame/blob/branch/path/image.png)
+![Redis](https://github.com/ssvssssvss/-DDL-DML-/blob/redis/redis.PNG)
