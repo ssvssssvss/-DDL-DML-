@@ -1,21 +1,30 @@
-Домашнее задание по лекции "Защита хоста". Грекова Иоланта.
+Домашнее задание к занятию «ELK». Грекова Иоланта.
 
-**Задание 1**
-*Установите eCryptfs.*
-*Добавьте пользователя cryptouser.*
-*Зашифруйте домашний каталог пользователя с помощью eCryptfs.*
-*В качестве ответа пришлите снимки экрана домашнего каталога пользователя с исходными и зашифрованными данными.*
+**Задание 1. Elasticsearch**
+Установите и запустите Elasticsearch, после чего поменяйте параметр cluster_name на случайный.
+Приведите скриншот команды 'curl -X GET 'localhost:9200/_cluster/health?pretty', сделанной на сервере с установленным Elasticsearch. Где будет виден нестандартный cluster_name.
 
 **Ответ**
-![Скриншот зашифрованного и дешифрованного каталога](https://github.com/ssvssssvss/-DDL-DML-/blob/main/cryptouser.PNG)
+![Скриншот команды](https://github.com/ssvssssvss/-DDL-DML-/blob/ELK/elacticsearch.PNG)
 
-**Задание 2**
-*Установите поддержку LUKS.*
-*Создайте небольшой раздел, например, 100 Мб.*
-*Зашифруйте созданный раздел с помощью LUKS.*
-*В качестве ответа пришлите снимки экрана с поэтапным выполнением задания.*
+**Задание 2. Kibana**
+Установите и запустите Kibana.
+Приведите скриншот интерфейса Kibana на странице http://<ip вашего сервера>:5601/app/dev_tools#/console, где будет выполнен запрос GET /_cluster/health?pretty.
+
+**Ответт**
+![Скриншот команды](https://github.com/ssvssssvss/-DDL-DML-/blob/ELK/kibana.PNG)
+
+**Задание 3. Logstash**
+Установите и запустите Logstash и Nginx. С помощью Logstash отправьте access-лог Nginx в Elasticsearch.
+Приведите скриншот интерфейса Kibana, на котором видны логи Nginx.
 
 **Ответ**
-На скриншотах попали небольшие опечатки :(
-![Скриншот выполненных команд 1](https://github.com/ssvssssvss/-DDL-DML-/blob/main/luks.PNG)
-![Скриншот выполненных команд 2](https://github.com/ssvssssvss/-DDL-DML-/blob/main/luks2.PNG)
+![Скриншот команды](https://github.com/ssvssssvss/-DDL-DML-/blob/ELK/nginx.PNG)
+
+**Задание 4. Filebeat.**
+Установите и запустите Filebeat. Переключите поставку логов Nginx с Logstash на Filebeat.
+Приведите скриншот интерфейса Kibana, на котором видны логи Nginx, которые были отправлены через Filebeat.
+
+**Ответ**
+![Скриншот команды](https://github.com/ssvssssvss/-DDL-DML-/blob/ELK/filebeat.PNG)
+
