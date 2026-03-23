@@ -15,6 +15,7 @@
 **Ответ**
 ![Авторизация в админке Zabbix](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/adminzabbix.PNG)
 
+```bash
 # Установка PostgreSQL из системного репозитория Debian 11
 sudo apt update
 sudo apt install -y postgresql postgresql-contrib
@@ -34,7 +35,7 @@ sudo sed -i 's/# DBPassword=/DBPassword=your_password/' /etc/zabbix/zabbix_serve
 # Запуск и добавление в автозагрузку служб
 sudo systemctl restart zabbix-server zabbix-agent apache2
 sudo systemctl enable zabbix-server zabbix-agent apache2
-
+```
 
 **Задание 2**
 **Установите Zabbix Agent на два хоста.**
