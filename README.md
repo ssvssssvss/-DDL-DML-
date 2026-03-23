@@ -53,6 +53,7 @@ sudo systemctl enable zabbix-server zabbix-agent apache2
 Приложите в файл README.md текст использованных команд в GitHub.
 
 **Ответ**
+```bash
 # На Zabbix Server
 sudo apt install -y zabbix-agent
 # На второй виртуальной машине (установка агента)
@@ -71,7 +72,7 @@ Hostname=имя_хоста_агента
 # Перезапуск агента на обеих машинах
 sudo systemctl restart zabbix-agent
 sudo systemctl enable zabbix-agent
-
+```
 ![Скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/hosts.PNG)
 
 ![скриншот лога zabbix agent, где видно, что он работает с сервером](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/logs.PNG)
