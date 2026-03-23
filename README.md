@@ -13,7 +13,7 @@
 Приложите в файл README.md текст использованных команд в GitHub.
 
 **Ответ**
-![Авторизация в админке Zabbix]()
+![Авторизация в админке Zabbix](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/adminzabbix.PNG)
 
 # Установка PostgreSQL из системного репозитория Debian 11
 sudo apt update
@@ -71,8 +71,8 @@ Hostname=имя_хоста_агента
 sudo systemctl restart zabbix-agent
 sudo systemctl enable zabbix-agent
 
-![Скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу]()
+![Скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/hosts.PNG)
 
-![скриншот лога zabbix agent, где видно, что он работает с сервером]()
+![скриншот лога zabbix agent, где видно, что он работает с сервером](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/logs.PNG)
 
-![скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные]()
+![скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/monitoring.PNG)
