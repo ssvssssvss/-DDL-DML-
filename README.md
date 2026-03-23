@@ -1,79 +1,78 @@
-Домашнее задание к занятию «Уязвимости и атаки на информационные системы». Грекова Иоланта 
+Домашнее задание к занятию «Система мониторинга Zabbix». Грекова Иоланта.
 
 **Задание 1**
-*Скачайте и установите виртуальную машину Metasploitable: https://sourceforge.net/projects/metasploitable/.*
+**Установите Zabbix Server с веб-интерфейсом.**
 
-*Это типовая ОС для экспериментов в области информационной безопасности, с которой следует начать при анализе уязвимостей.*
+Процесс выполнения
+Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции.
+Установите PostgreSQL. Для установки достаточна та версия, что есть в системном репозитороии Debian 11.
+Пользуясь конфигуратором команд с официального сайта, составьте набор команд для установки последней версии Zabbix с поддержкой PostgreSQL и Apache.
+Выполните все необходимые команды для установки Zabbix Server и Zabbix Web Server.
+Требования к результатам
+Прикрепите в файл README.md скриншот авторизации в админке.
+Приложите в файл README.md текст использованных команд в GitHub.
 
-*Просканируйте эту виртуальную машину, используя nmap.*
+**Ответ**
+![Авторизация в админке Zabbix]()
 
-*Попробуйте найти уязвимости, которым подвержена эта виртуальная машина.*
+# Установка PostgreSQL из системного репозитория Debian 11
+sudo apt update
+sudo apt install -y postgresql postgresql-contrib
+# Добавление репозитория Zabbix
+sudo wget https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.0+debian11_all.deb
+sudo dpkg -i zabbix-release_latest_7.0+debian11_all.deb
+sudo apt update
+# Установка Zabbix Server и Web Server с поддержкой PostgreSQL и Apache
+sudo apt install -y zabbix-server-pgsql zabbix-frontend-php php-pgsql zabbix-apache-conf zabbix-sql-scripts zabbix-agent
+# Создание базы данных и пользователя для Zabbix
+sudo -u postgres createuser --pwprompt zabbix
+sudo -u postgres createdb -O zabbix zabbix
+# Импорт начальной схемы базы данных
+zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
+# Настройка пароля базы данных в конфигурации Zabbix Server
+sudo sed -i 's/# DBPassword=/DBPassword=your_password/' /etc/zabbix/zabbix_server.conf
+# Запуск и добавление в автозагрузку служб
+sudo systemctl restart zabbix-server zabbix-agent apache2
+sudo systemctl enable zabbix-server zabbix-agent apache2
 
-*Сами уязвимости можно поискать на сайте https://www.exploit-db.com/.*
-
-*Для этого нужно в поиске ввести название сетевой службы, обнаруженной на атакуемой машине, и выбрать подходящие по версии уязвимости.*
-
-**Ответ:**
-
-*Какие сетевые службы в ней разрешены?*
-
-PORT     STATE SERVICE     VERSION
-21/tcp   open  ftp         vsftpd 2.3.4
-22/tcp   open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
-23/tcp   open  telnet      Linux telnetd
-25/tcp   open  smtp        Postfix smtpd
-53/tcp   open  domain      ISC BIND 9.4.2
-80/tcp   open  http        Apache httpd 2.2.8 ((Ubuntu) DAV/2)
-111/tcp  open  rpcbind     2 (RPC #100000)
-139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
-445/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
-512/tcp  open  exec        netkit-rsh rexecd
-513/tcp  open  login       OpenBSD or Solaris rlogind
-514/tcp  open  tcpwrapped
-1099/tcp open  java-rmi    GNU Classpath grmiregistry
-1524/tcp open  bindshell   Metasploitable root shell
-2049/tcp open  nfs         2-4 (RPC #100003)
-2121/tcp open  ftp         ProFTPD 1.3.1
-3306/tcp open  mysql       MySQL 5.0.51a-3ubuntu5
-5432/tcp open  postgresql  PostgreSQL DB 8.3.0 - 8.3.7
-5900/tcp open  vnc         VNC (protocol 3.3): уязвимость Vino VNC Server 3.7.3 - Persistent Denial of Service DoS
-6000/tcp open  X11         (access denied)
-6667/tcp open  irc         UnrealIRCd
-8009/tcp open  ajp13       Apache Jserv (Protocol v1.3)
-8180/tcp open  http        Apache Tomcat/Coyote JSP engine 1.1
-MAC Address: 08:00:27:0D:83:44 (Oracle VirtualBox virtual NIC)
-Service Info: Hosts:  metasploitable.localdomain, irc.Metasploitable.LAN; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
-
-
-*Какие уязвимости были вами обнаружены? (список со ссылками: достаточно трёх уязвимостей)*
-rpcbind: 
-RPCBind / libtirpc - Denial of Service: https://www.exploit-db.com/exploits/41974
-rpcbind - CALLIT procedure UDP Crash (PoC): https://www.exploit-db.com/exploits/26887
-
-postgresql:
-PostgreSQL 8.3.6 - Conversion Encoding Remote Denial of Service: https://www.exploit-db.com/exploits/32849
-PostgreSQL 8.2/8.3/8.4 - UDF for Command Execution: https://www.exploit-db.com/exploits/7855
-
-vnc: Vino VNC Server 3.7.3 - Persistent Denial of Service: https://www.exploit-db.com/exploits/28338
-
-irc: 
-UnrealIRCd 3.2.8.1 - Backdoor Command Execution (Metasploit): https://www.exploit-db.com/exploits/16922
-UnrealIRCd 3.2.8.1 - Remote Downloader/Execute: https://www.exploit-db.com/exploits/13853
 
 **Задание 2**
-*Проведите сканирование Metasploitable в режимах SYN, FIN, Xmas, UDP.*
+**Установите Zabbix Agent на два хоста.**
 
-*Запишите сеансы сканирования в Wireshark.*
+Процесс выполнения
+Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции.
+Установите Zabbix Agent на 2 вирт.машины, одной из них может быть ваш Zabbix Server.
+Добавьте Zabbix Server в список разрешенных серверов ваших Zabbix Agentов.
+Добавьте Zabbix Agentов в раздел Configuration > Hosts вашего Zabbix Servera.
+Проверьте, что в разделе Latest Data начали появляться данные с добавленных агентов.
+Требования к результатам
+Приложите в файл README.md скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу
+Приложите в файл README.md скриншот лога zabbix agent, где видно, что он работает с сервером
+Приложите в файл README.md скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные.
+Приложите в файл README.md текст использованных команд в GitHub.
 
-*Ответьте на следующие вопросы:*
+**Ответ**
+# На Zabbix Server
+sudo apt install -y zabbix-agent
+# На второй виртуальной машине (установка агента)
+# Добавление репозитория Zabbix
+sudo wget https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.0+debian11_all.deb
+sudo dpkg -i zabbix-release_latest_7.0+debian11_all.deb
+sudo apt update
+# Установка Zabbix Agent
+sudo apt install -y zabbix-agent
+# На обеих машинах - редактирование конфигурации агента
+sudo nano /etc/zabbix/zabbix_agentd.conf
+# Изменить строки:
+Server=127.0.0.1 -> Server=IP_Zabbix_сервера
+ServerActive=127.0.0.1 -> ServerActive=IP_Zabbix_сервера
+Hostname=имя_хоста_агента
+# Перезапуск агента на обеих машинах
+sudo systemctl restart zabbix-agent
+sudo systemctl enable zabbix-agent
 
-**Ответы**
-*Чем отличаются эти режимы сканирования с точки зрения сетевого трафика?*
-Различные режимы сканирования отличаются типами отправляемых пакетов и реакцией целевой системы.
-Различия между режимами сканирования заключаются в используемых типах пакетов и способах интерпретации ответа: наличие ответа (SYN-ACK, RST, ICMP) или его отсутствие.
+![Скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу]()
 
-*Как отвечает сервер?*
-UDP-сканирование отправляет UDP-пакеты. Закрытые порты отвечают ICMP-сообщением «Destination Unreachable (Port Unreachable)», а открытые порты не отвечают.
-Xmas-сканирование использует TCP-пакеты с флагами FIN, PSH и URG. Поведение аналогично FIN: открытые порты не отвечают, закрытые отправляют RST.
-FIN-сканирование отправляет TCP-пакеты с флагом FIN. Открытые порты игнорируют такие пакеты, а закрытые отвечают RST.
-SYN-сканирование использует TCP-пакеты с флагом SYN. Открытые порты отвечают SYN-ACK, после чего сканер отправляет RST, не завершая соединение. Закрытые порты отвечают RST.
+![скриншот лога zabbix agent, где видно, что он работает с сервером]()
+
+![скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные]()
