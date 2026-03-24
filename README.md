@@ -85,4 +85,4 @@ Master-Master (опционально):
 - в slave (если чтение)
 - в master (если запись)
 
-![Схема]()
+![Схема](https://github.com/ssvssssvss/-DDL-DML-/blob/DB2/scheme.PNG)
