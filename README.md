@@ -1,80 +1,88 @@
-Домашнее задание к занятию «Система мониторинга Zabbix». Грекова Иоланта.
+Домашнее задание по лекции "Работа с данными (DDL/DML)". Грекова Иоланта.
 
 **Задание 1**
-**Установите Zabbix Server с веб-интерфейсом.**
-
-Процесс выполнения
-Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции.
-Установите PostgreSQL. Для установки достаточна та версия, что есть в системном репозитороии Debian 11.
-Пользуясь конфигуратором команд с официального сайта, составьте набор команд для установки последней версии Zabbix с поддержкой PostgreSQL и Apache.
-Выполните все необходимые команды для установки Zabbix Server и Zabbix Web Server.
-Требования к результатам
-Прикрепите в файл README.md скриншот авторизации в админке.
-Приложите в файл README.md текст использованных команд в GitHub.
+1.1. Поднимите чистый инстанс MySQL версии 8.0+. Можно использовать локальный сервер или контейнер Docker.
+1.2. Создайте учётную запись sys_temp.
+1.3. Выполните запрос на получение списка пользователей в базе данных. (скриншот)
+1.4. Дайте все права для пользователя sys_temp.
+1.5. Выполните запрос на получение списка прав для пользователя sys_temp. (скриншот)
+1.6. Переподключитесь к базе данных от имени sys_temp.
+Для смены типа аутентификации с sha2 используйте запрос:
+ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+1.6. По ссылке https://downloads.mysql.com/docs/sakila-db.zip скачайте дамп базы данных.
+1.7. Восстановите дамп в базу данных.
+1.8. При работе в IDE сформируйте ER-диаграмму получившейся базы данных. При работе в командной строке используйте команду для получения всех таблиц базы данных. (скриншот)
+Результатом работы должны быть скриншоты обозначенных заданий, а также простыня со всеми запросами.
 
 **Ответ**
-![Авторизация в админке Zabbix](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/adminzabbix.PNG)
+1.3.
+![Скриншот запроса на получение списка пользователей в БД]()
 
+1.5.
+![Скриншотн запроса на получение списка прав для пользотеля]()
+
+1.8.
+![Таблицы БД]()
+
+
+---
 ```bash
-# Установка PostgreSQL из системного репозитория Debian 11
-sudo apt update
-sudo apt install -y postgresql postgresql-contrib
-# Добавление репозитория Zabbix
-sudo wget https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.0+debian11_all.deb
-sudo dpkg -i zabbix-release_latest_7.0+debian11_all.deb
-sudo apt update
-# Установка Zabbix Server и Web Server с поддержкой PostgreSQL и Apache
-sudo apt install -y zabbix-server-pgsql zabbix-frontend-php php-pgsql zabbix-apache-conf zabbix-sql-scripts zabbix-agent
-# Создание базы данных и пользователя для Zabbix
-sudo -u postgres createuser --pwprompt zabbix
-sudo -u postgres createdb -O zabbix zabbix
-# Импорт начальной схемы базы данных
-zcat /usr/share/zabbix-sql-scripts/postgresql/server.sql.gz | sudo -u zabbix psql zabbix
-# Настройка пароля базы данных в конфигурации Zabbix Server
-sudo sed -i 's/# DBPassword=/DBPassword=your_password/' /etc/zabbix/zabbix_server.conf
-# Запуск и добавление в автозагрузку служб
-sudo systemctl restart zabbix-server zabbix-agent apache2
-sudo systemctl enable zabbix-server zabbix-agent apache2
+# Пункт 1.1 — Поднятие инстанса MySQL (локальная установка)
+sudo apt-get update
+sudo apt-get install mysql-server -y
+sudo systemctl start mysql
+sudo mysql
+```
+```sql
+# Пункт 1.2 — Создание учетной записи sys_temp
+CREATE USER 'sys_temp'@'localhost' IDENTIFIED BY 'password';
+# Пункт 1.3 — Получение списка пользователей
+SELECT user FROM mysql.user;
+# Пункт 1.4 — Выдача всех прав пользователю sys_temp
+GRANT ALL PRIVILEGES ON *.* TO 'sys_temp'@'localhost';
+# Пункт 1.5 — Получение списка прав для sys_temp
+SHOW GRANTS FOR 'sys_temp'@'localhost';
+# Пункт 1.6 — Смена типа аутентификации и переподключение
+ALTER USER 'sys_temp'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+EXIT;
+```
+```bash
+mysql -u sys_temp -p
+#Пункт 1.6 (скачивание дампа) — выполнялось в терминале ОС
+wget https://downloads.mysql.com/docs/sakila-db.zip
+unzip sakila-db.zip
+```
+```sql
+# Пункт 1.7 — Восстановление дампа
+SOURCE /home/vboxuser/sakila-db/sakila-schema.sql;
+SOURCE /home/vboxuser/sakila-db/sakila-data.sql;
+# Пункт 1.8 — Получение списка таблиц
+SHOW DATABASES;
+USE sakila;
+SHOW TABLES;
 ```
 
 **Задание 2**
-**Установите Zabbix Agent на два хоста.**
-
-Процесс выполнения
-Выполняя ДЗ, сверяйтесь с процессом отражённым в записи лекции.
-Установите Zabbix Agent на 2 вирт.машины, одной из них может быть ваш Zabbix Server.
-Добавьте Zabbix Server в список разрешенных серверов ваших Zabbix Agentов.
-Добавьте Zabbix Agentов в раздел Configuration > Hosts вашего Zabbix Servera.
-Проверьте, что в разделе Latest Data начали появляться данные с добавленных агентов.
-Требования к результатам
-Приложите в файл README.md скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу
-Приложите в файл README.md скриншот лога zabbix agent, где видно, что он работает с сервером
-Приложите в файл README.md скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные.
-Приложите в файл README.md текст использованных команд в GitHub.
+Составьте таблицу, используя любой текстовый редактор или Excel, в которой должно быть два столбца: в первом должны быть названия таблиц восстановленной базы, во втором названия первичных ключей этих таблиц. Пример: (скриншот/текст)
 
 **Ответ**
-```bash
-# На Zabbix Server
-sudo apt install -y zabbix-agent
-# На второй виртуальной машине (установка агента)
-# Добавление репозитория Zabbix
-sudo wget https://repo.zabbix.com/zabbix/7.0/debian/pool/main/z/zabbix-release/zabbix-release_latest_7.0+debian11_all.deb
-sudo dpkg -i zabbix-release_latest_7.0+debian11_all.deb
-sudo apt update
-# Установка Zabbix Agent
-sudo apt install -y zabbix-agent
-# На обеих машинах - редактирование конфигурации агента
-sudo nano /etc/zabbix/zabbix_agentd.conf
-# Изменить строки:
-Server=127.0.0.1 -> Server=IP_Zabbix_сервера
-ServerActive=127.0.0.1 -> ServerActive=IP_Zabbix_сервера
-Hostname=имя_хоста_агента
-# Перезапуск агента на обеих машинах
-sudo systemctl restart zabbix-agent
-sudo systemctl enable zabbix-agent
-```
-![Скриншот раздела Configuration > Hosts, где видно, что агенты подключены к серверу](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/hosts.PNG)
+markdown
 
-![скриншот лога zabbix agent, где видно, что он работает с сервером](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/logs.PNG)
-
-![скриншот раздела Monitoring > Latest data для обоих хостов, где видны поступающие от агентов данные](https://github.com/ssvssssvss/-DDL-DML-/blob/CS/monitoring.PNG)
+| Таблица | Первичный ключ |
+|---------|---------------|
+| actor | actor_id |
+| address | address_id |
+| category | category_id |
+| city | city_id |
+| country | country_id |
+| customer | customer_id |
+| film | film_id |
+| film_actor | actor_id, film_id |
+| film_category | film_id, category_id |
+| film_text | film_id |
+| inventory | inventory_id |
+| language | language_id |
+| payment | payment_id |
+| rental | rental_id |
+| staff | staff_id |
+| store | store_id |
