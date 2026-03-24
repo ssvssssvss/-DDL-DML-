@@ -16,13 +16,13 @@ ALTER USER 'sys_test'@'localhost' IDENTIFIED WITH mysql_native_password BY 'pass
 
 **Ответ**
 1.3.
-![Скриншот запроса на получение списка пользователей в БД]()
+![Скриншот запроса на получение списка пользователей в БД](https://github.com/ssvssssvss/-DDL-DML-/blob/DB/systeml.PNG)
 
 1.5.
-![Скриншотн запроса на получение списка прав для пользотеля]()
+![Скриншотн запроса на получение списка прав для пользотеля](https://github.com/ssvssssvss/-DDL-DML-/blob/DB/systemp_grants.PNG)
 
 1.8.
-![Таблицы БД]()
+![Таблицы БД](https://github.com/ssvssssvss/-DDL-DML-/blob/DB/db.PNG)
 
 
 ---
