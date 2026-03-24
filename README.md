@@ -18,12 +18,12 @@ Master-Master:
 Приложите скриншоты конфигурации, выполнения работы: состояния и режимы работы серверов.
 
 **Ответ**
-![Статус службы mysql]()
-![Status slave]()
-![Status master]()
-![Конфигурация master]()
-![Конфигурация slave]()
-![Активные процессы]()
-![Вывод БД master]()
-![Вывод БД slave]()
+![Статус службы mysql](https://github.com/ssvssssvss/-DDL-DML-/blob/DB2/status.PNG)
+![Status slave](https://github.com/ssvssssvss/-DDL-DML-/blob/DB2/slavestatus.PNG)
+![Status master](https://github.com/ssvssssvss/-DDL-DML-/blob/DB2/masterstatus.PNG)
+![Конфигурация master](https://github.com/ssvssssvss/-DDL-DML-/blob/DB2/master.PNG)
+![Конфигурация slave](https://github.com/ssvssssvss/-DDL-DML-/blob/DB2/slave.PNG)
+![Активные процессы](https://github.com/ssvssssvss/-DDL-DML-/blob/DB2/ps.PNG)
+![Вывод БД master](https://github.com/ssvssssvss/-DDL-DML-/blob/DB2/infomaster.PNG)
+![Вывод БД slave](https://github.com/ssvssssvss/-DDL-DML-/blob/DB2/infoslave.PNG)
 
