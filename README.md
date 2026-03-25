@@ -95,11 +95,10 @@
 
 **Ответ**
 
-![]()
-![]()
-![]()
-![]()
-![]()
+![Вход в консоль](https://github.com/ssvssssvss/-DDL-DML-/blob/AWS/console.png)
+![Зарегистрированный в биллинге аккаунт](https://github.com/ssvssssvss/-DDL-DML-/blob/AWS/billing.png)
+![Вход в Computer Cloud](https://github.com/ssvssssvss/-DDL-DML-/blob/AWS/VM.png)
+![Создание ВМ](https://github.com/ssvssssvss/-DDL-DML-/blob/AWS/computecloud.png)
 
 Какие ОС можно выбрать?
 - Ubuntu'
