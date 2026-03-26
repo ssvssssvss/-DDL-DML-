@@ -30,9 +30,8 @@ backend my_back
    server s1 127.0.0.1:8001 check
    server s2 127.0.0.1:8002 chec
 ```
-![]()
-![]()
-![]()
+![Запущенные python сервера](https://github.com/ssvssssvss/-DDL-DML-/blob/ELB/task11.PNG)
+![Перенаправление запросов](https://github.com/ssvssssvss/-DDL-DML-/blob/ELB/task1.PNG)
 
 **Задание 2**
 Запустите три simple python сервера на своей виртуальной машине на разных портах
@@ -70,4 +69,4 @@ backend weighted_back
 backend deny_back
    http-request deny
 ```
-![]()
+![Перенаправление запросов](https://github.com/ssvssssvss/-DDL-DML-/blob/ELB/task2.PNG)
