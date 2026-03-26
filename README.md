@@ -161,8 +161,8 @@ networks:
        - subnet: 10.5.0.0/16
 ```
 
-![]()
-![]()
+![docker ps](https://github.com/ssvssssvss/-DDL-DML-/blob/docker/task7_dockerps.PNG)
+![grafana dashboard](https://github.com/ssvssssvss/-DDL-DML-/blob/docker/task7_grafana.PNG)
 
 **Задание 8**
 Выполните действия:
@@ -170,4 +170,4 @@ networks:
 В качестве решения приложите скриншот консоли с проделанными действиями.
 
 **Ответ**
-![]()
+![remove containers](https://github.com/ssvssssvss/-DDL-DML-/blob/docker/task8_remove.PNG)
