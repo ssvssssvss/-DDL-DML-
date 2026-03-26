@@ -1,173 +1,73 @@
-Домашнее задание к занятию «Docker. Часть 2». Грекова Иоланта.
+Домашнее задание к занятию 2 «Кластеризация и балансировка нагрузки». Грекова Иоланта.
 
 **Задание 1**
-Напишите ответ в свободной форме, не больше одного абзаца текста.
-Установите Docker Compose и опишите, для чего он нужен и как может улучшить лично вашу жизнь.
+Запустите два simple python сервера на своей виртуальной машине на разных портах
+Установите и настройте HAProxy, воспользуйтесь материалами к лекции по ссылке
+Настройте балансировку Round-robin на 4 уровне.
+На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy.
 
 **Ответ**
-Docker Compose —  инструмент для оркестрации многоконтейнерных приложений, который дает возможность с помощью одной команды (`docker-compose up`) и YAML-файла описывать, запускать и связывать все необходимые сервисы.
-- Не нужно вручную прописывать `docker run` команды с параметрами сетей и томов для каждого контейнера. 
-- Лично мне он улучшает жизнь тем, что решает проблему «а у меня не запускается» у команды и менеджеров проекта.
-- Конфигурация всей инфраструктуры проекта хранится в одном файле, обеспечивая полную идентичность окружения на любой машине.
-- Экономит часы времени, так как больше не нужно вспоминать, с какими флагами поднимать PostgreSQL или Redis.
+```bash
+cat /etc/haproxy/haproxy.cfg
+```
+```cfg
+global
+   log /dev/log local0
+   maxconn 1000
+
+defaults
+   mode tcp
+   timeout connect 5s
+   timeout client  50s
+   timeout server  50s
+
+frontend my_front
+   bind *:9000
+   default_backend my_back
+
+backend my_back
+   balance roundrobin
+   server s1 127.0.0.1:8001 check
+   server s2 127.0.0.1:8002 chec
+```
+![]()
+![]()
+![]()
 
 **Задание 2**
-Выполните действия и приложите текст конфига на этом этапе.
-Создайте файл docker-compose.yml и внесите туда первичные настройки:
-version;
-services;
-volumes;
-networks.
-При выполнении задания используйте подсеть 10.5.0.0/16. Ваша подсеть должна называться: <ваши фамилия и инициалы>-my-netology-hw. Все приложения из последующих заданий должны находиться в этой конфигурации.
+Запустите три simple python сервера на своей виртуальной машине на разных портах
+Настройте балансировку Weighted Round Robin на 7 уровне, чтобы первый сервер имел вес 2, второй - 3, а третий - 4
+HAproxy должен балансировать только тот http-трафик, который адресован домену example.local
+На проверку направьте конфигурационный файл haproxy, скриншоты, где видно перенаправление запросов на разные серверы при обращении к HAProxy c использованием домена example.local и без него.
 
 **Ответ**
-```yml
-version: '3.8'
-
-services: {}
-
-volumes: {}
-
-networks:
-  grekovais-my-netology-hw:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.5.0.0/16
-```
-
-**Задание 3**
-Выполните действия:
-Создайте конфигурацию docker-compose для Prometheus с именем контейнера <ваши фамилия и инициалы>-netology-prometheus.
-Добавьте необходимые тома с данными и конфигурацией (конфигурация лежит в репозитории в директории 6-04/prometheus ).
-Обеспечьте внешний доступ к порту 9090 c докер-сервера.
-
-**Ответ**
-Внесены изменения в yml файл, добавлен сервис:
-```yml
-services:
-  prometheus:
-    container_name: grekovais-netology-prometheus
-    image: prom/prometheus:latest
-    ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus:/etc/prometheus
-      - prometheus_data:/prometheus
-    networks:
-      - grekovais-my-netology-hw
-```
-
-**Задание 4**
-Выполните действия:
-Создайте конфигурацию docker-compose для Pushgateway с именем контейнера <ваши фамилия и инициалы>-netology-pushgateway.
-Обеспечьте внешний доступ к порту 9091 c докер-сервера.
-
-**Ответ**
-Добавлен еще один сервис:
-```yml
-pushgateway:
-    container_name: grekovais-netology-pushgateway
-    image: prom/pushgateway:latest
-    ports:
-      - "9091:9091"
-    networks:
-      - grekovais-my-netology-hw
-```
-
-**Задание 5**
-Выполните действия:
-Создайте конфигурацию docker-compose для Grafana с именем контейнера <ваши фамилия и инициалы>-netology-grafana.
-Добавьте необходимые тома с данными и конфигурацией (конфигурация лежит в репозитории в директории 6-04/grafana.
-Добавьте переменную окружения с путем до файла с кастомными настройками (должен быть в томе), в самом файле пропишите логин=<ваши фамилия и инициалы> пароль=netology.
-Обеспечьте внешний доступ к порту 3000 c порта 80 докер-сервера.
-
-**Ответ**
-Добавлена конфигурация для grafana + сервис:
 ```bash
-nano ~/docker-hw/grafana/grafana.ini
+cat /etc/haproxy/haproxy.cfg
 ```
+```cfg
+global
+   log /dev/log local0
+   maxconn 1000
 
-**Задание 6**
-Выполните действия.
-Настройте поочередность запуска контейнеров.
-Настройте режимы перезапуска для контейнеров.
-Настройте использование контейнерами одной сети.
-Запустите сценарий в detached режиме.
+defaults
+   mode http
+   timeout connect 5s
+   timeout client  50s
+   timeout server  50s
 
-**Ответ**
-Внесены необходимые изменения в yml файл.
+frontend http_front
+   bind *:9000
+   acl is_example hdr(host) -i example.local
+   use_backend weighted_back if is_example
+   default_backend deny_back
 
-**Задание 7**
-Выполните запрос в Pushgateway для помещения метрики <ваши фамилия и инициалы> со значением 5 в Prometheus: echo "<ваши фамилия и инициалы> 5" | curl --data-binary @- http://localhost:9091/metrics/job/netology.
-Залогиньтесь в Grafana с помощью логина и пароля из предыдущего задания.
-Cоздайте Data Source Prometheus (Home -> Connections -> Data sources -> Add data source -> Prometheus -> указать "Prometheus server URL = http://prometheus:9090" -> Save & Test).
-Создайте график на основе добавленной в пункте 5 метрики (Build a dashboard -> Add visualization -> Prometheus -> Select metric -> Metric explorer -> <ваши фамилия и инициалы -> Apply.
-В качестве решения приложите:
-docker-compose.yml целиком;
-скриншот команды docker ps после запуске docker-compose.yml;
-скриншот графика, постоенного на основе вашей метрики.
+backend weighted_back
+   balance roundrobin
+   server s1 127.0.0.1:8001 weight 2 check
+   server s2 127.0.0.1:8002 weight 3 check
+   server s3 127.0.0.1:8003 weight 4 check
 
-**Ответ**
-```yml
-# version: '3.8'
-services:
- prometheus:
-   container_name: grekovais-netology-prometheus
-   image: prom/prometheus:latest
-   ports:
-     - "9090:9090"
-   volumes:
-     - ./prometheus:/etc/prometheus
-     - prometheus_data:/prometheus
-   networks:
-     - grekovais-my-netology-hw
-
- pushgateway:
-   container_name: grekovais-netology-pushgateway
-   image: prom/pushgateway:latest
-   restart: unless-stopped
-   ports:
-     - "9091:9091"
-   networks:
-     - grekovais-my-netology-hw
-
- grafana:
-   container_name: grekovais-netology-grafana
-   image: grafana/grafana:latest
-   restart: unless-stopped
-   ports:
-     - "80:3000"
-   volumes:
-     - ./grafana:/etc/grafana
-     - grafana_data:/var/lib/grafana
-   environment:
-     - GF_PATHS_CONFIG=/etc/grafana/grafana.ini
-   networks:
-     - grekovais-my-netology-hw
-   depends_on:
-     - prometheus
-     - pushgateway
-
-volumes:
- prometheus_data: {}
- grafana_data: {}
-
-networks:
- grekovais-my-netology-hw:
-   driver: bridge
-   ipam:
-     config:
-       - subnet: 10.5.0.0/16
+backend deny_back
+   http-request deny
 ```
-
-![docker ps](https://github.com/ssvssssvss/-DDL-DML-/blob/docker/task7_dockerps.PNG)
-![grafana dashboard](https://github.com/ssvssssvss/-DDL-DML-/blob/docker/task7_grafana.PNG)
-
-**Задание 8**
-Выполните действия:
-Остановите и удалите все контейнеры одной командой.
-В качестве решения приложите скриншот консоли с проделанными действиями.
-
-**Ответ**
-![remove containers](https://github.com/ssvssssvss/-DDL-DML-/blob/docker/task8_remove.PNG)
+![]()
