@@ -11,8 +11,8 @@
 
 **Ответ**
 
-![]()
-![]()
+![Работающая страница](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/img/task1.PNG)
+![301 ответ](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/img/task11.PNG)
 
 **Задание 2.**
 Описание задания
@@ -24,5 +24,7 @@
 
 **Ответ**
 
-![]()
-![]()
+[Конфигурация](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/file/localhost-ssl.conf)
+
+![Работающая страница](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/img/task2.PNG)
+![Работающая конфигурация](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/img/task22.PNG)
