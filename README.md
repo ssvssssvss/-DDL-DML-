@@ -16,10 +16,10 @@
 
 **Ответ**
 
-[]()
+[dhcpd.conf](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/file/dhcpd.conf)
+[isc-dhcp-server](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/file/isc-dhcp-server)
 
-![]()
-![]()
+![status dhcp](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/img/task1.PNG)
 
 **Задание 2.**
 Описание задания
@@ -42,6 +42,13 @@
 
 **Ответ**
 
-[]()
+Установлен TFTP-сервер
+Настроена рабочая директория /srv/tftp
+Разрешено создание файлов (--create)
+Выполнено тестирование через TFTP-клиент
+Файл успешно передан по сети
 
-![]()
+[tftpd-hpa](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/file/tftpd-hpa)
+
+![status tftpd-hpa](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/img/task2.PNG)
+![Выполнено тестирование через TFTP-клиент](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/img/task22.PNG)
