@@ -8,7 +8,7 @@
 
 **Ответ**
 
-![rsync]()
+![rsync](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/img/task1.png)
 
 **Задание 2**
 Написать скрипт и настроить задачу на регулярное резервное копирование домашней директории пользователя с помощью rsync и cron.
@@ -18,4 +18,6 @@
 На проверку направить файл crontab и скриншот с результатом работы утилиты.
 
 **Ответ**
-![crontab]()
+
+[Файл Crontab](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/file/crontab)
+![crontab](https://github.com/ssvssssvss/-DDL-DML-/blob/copy/img/task2.png)
