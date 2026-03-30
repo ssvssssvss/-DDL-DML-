@@ -10,8 +10,8 @@
 
 **Ответ**
 
-![]()
-![]()
+![Созданный проект](https://github.com/ssvssssvss/-DDL-DML-/blob/gitlab/img/task1.PNG)
+![Настройки раннера](https://github.com/ssvssssvss/-DDL-DML-/blob/gitlab/img/task11.PNG)
 
 
 **Задание 2**
@@ -24,8 +24,7 @@
 
 **Ответ**
 
-[]()
+[Файл gitlab-ci.yml](https://github.com/ssvssssvss/-DDL-DML-/blob/gitlab/file/.gitlab-ci.yml)
 
-![]()
-![]()
+![Успешная сборка](https://github.com/ssvssssvss/-DDL-DML-/blob/gitlab/img/task22.PNG)
 
