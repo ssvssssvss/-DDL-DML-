@@ -1,0 +1,12 @@
+filebeat.inputs:
+- type: log
+ enabled: true
+ paths:
+   - /var/log/nginx/access.log
+   - /var/log/nginx/error.log
+
+output.elasticsearch:
+ hosts: ["https://10.10.3.36:9200"]
+ username: "elastic"
+ password: "password"
+ ssl.verification_mode: none
