@@ -34,6 +34,7 @@
 6. Работа оформлена так, чтобы были понятны ваши решения и компромиссы.
 
 **Отчет о работе**
+
 *Архитектура решения*
 1. В одном VPC развернута инфраструктура:
 - Bastion host — доступ по SSH,
@@ -64,7 +65,7 @@
  
 Проверка:
 ```bash
-curl -v http://<IP балансера>
+curl -v http://158.160.255.157
 ```
 
 Файлы:
@@ -93,6 +94,10 @@ curl -v http://<IP балансера>
 - Добавлены хосты в Zabbix,
 - Настроен HTTP monitoring.
 
+URL: http://46.21.245.24/zabbix/
+Логин: Admin
+Пароль: zabbix
+
 Файлы:
 - [zabbix-agent.yml](https://github.com/ssvssssvss/-DDL-DML-/blob/final/file/zabbix-agent.yml)
 
@@ -118,6 +123,18 @@ HTTP scenario (Responce code 200)
 - Развернут Elasticsearch,
 - Развернут Kibana (Docker),
 - Настроен Filebeat на web-серверах.
+
+Kibana
+URL: [kibana](http://kibana.lab.local:5601)  
+Логин: elastic
+Пароль: cIhsunyKhHaODY=gj0UZ
+
+Elasticsearch (только для проверки работы)
+URL: [https://elasticsearch.lab.local:9200](https://elasticsearch.lab.local:9200)  
+Через сервисный токен Kibana:
+```bash
+curl -H "Authorization: Bearer AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjphQklUemJMWVJSNjYyVmVSR3NBZkhB" -k https://elasticsearch.lab.local:9200
+```
 
 Файлы:
 - [filebeat.yml](https://github.com/ssvssssvss/-DDL-DML-/blob/final/file/filebeat.yml)
