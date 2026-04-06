@@ -69,7 +69,7 @@ curl -v http://158.160.255.157
 ```
 
 Файлы:
-- [inventory.ini]() 
+- [inventory.ini](https://github.com/ssvssssvss/-DDL-DML-/blob/final/file/inventory.ini) 
 - [nginx-playbook](https://github.com/ssvssssvss/-DDL-DML-/blob/final/file/nginx-playbook.yml)
 
 Скриншоты:
@@ -94,7 +94,7 @@ curl -v http://158.160.255.157
 - Добавлены хосты в Zabbix,
 - Настроен HTTP monitoring.
 
-URL: http://46.21.245.24/zabbix/
+URL: [zabbix](http://46.21.245.24/zabbix/)
 Логин: Admin
 Пароль: zabbix
 
@@ -109,7 +109,7 @@ URL: http://46.21.245.24/zabbix/
 
 Хосты web-1 и web-2 связываются с сервером и отдают метрики (зеленый индикатор ZBX).
 
-![hosts]()
+![hosts](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/src15_zabbix.PNG)
 
 HTTP scenario (Responce code 200)
 
@@ -166,8 +166,6 @@ docker run -d \
  docker.elastic.co/kibana/kibana:8.11.0
 ```
 
-URL: http://
-
 6. Сеть:
 - Приватные подсети:
   -- web
@@ -191,6 +189,10 @@ URL: http://
 Созданные подсети:
 
 ![subnets](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr3_subnets.PNG)
+
+Демонстрация работы ELB:
+
+![ELB](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr13_elb.PNG)
 
 7. Резервное копирование:
 - Созданы snapshot дисков всех ВМ,
