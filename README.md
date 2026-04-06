@@ -1,4 +1,4 @@
-** Дипломная работа по профессии «Системный администратор». Грекова Иоланта.**
+**Дипломная работа по профессии «Системный администратор». Грекова Иоланта.**
 
 Сайт:
 1. Создайте две ВМ в разных зонах, установите на них сервер nginx, если его там нет. ОС и содержимое ВМ должно быть идентичным, это будут наши веб-сервера.
@@ -43,6 +43,20 @@
 - Kibana — визуализация логов (публичная сеть),
 - Application Load Balancer — доступ к сайту.
 
+Скриншоты:
+
+Созданная VPC:
+
+![VPC](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr2_vpc.PNG)
+
+Настроен NAT:
+
+![NAT](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr4_nat.PNG)
+
+Список настроенных и использованных Security Groups:
+
+![SG](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr5_sg.PNG)
+
 2. Сайт и балансировка:
 - Развернуты 2 идентичных веб-сервера,
 - Установлен nginx,
@@ -55,13 +69,23 @@ curl -v http://<IP балансера>
 
 Файлы:
 - [inventory.ini]() 
-- [nginx-playbook]()
+- [nginx-playbook](https://github.com/ssvssssvss/-DDL-DML-/blob/final/file/nginx-playbook.yml)
 
 Скриншоты:
 
-![]()
+Установленный Ansible на Bastion:
+![ansible](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/src8_ansible_version.PNG)
 
-![]()
+Добавленные в inventory хосты пингуются успешно.
+
+![ansible ping ok](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr10_ansible_ping.PNG)
+
+Установка nginx через плейбук успешна:
+
+![install nginx](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/src11_playbook_ok.PNG)
+
+Проверка корректности установки nginx:
+![nginx](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/src12_nginx.PNG)
 
 3. Мониторинг (Zabbix):
 - Установлен Zabbix server,
@@ -70,9 +94,13 @@ curl -v http://<IP балансера>
 - Настроен HTTP monitoring.
 
 Файлы:
-- [zabbix-agent.yml]()
+- [zabbix-agent.yml](https://github.com/ssvssssvss/-DDL-DML-/blob/final/file/zabbix-agent.yml)
 
 Скриншоты:
+
+Успешная установка zabbix-agent на хосты с использованием ansible:
+
+![playbook agent zbx](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/src14_ansible_ok_zabbixagent.PNG)
 
 Хосты web-1 и web-2 связываются с сервером и отдают метрики (зеленый индикатор ZBX).
 
@@ -80,11 +108,11 @@ curl -v http://<IP балансера>
 
 HTTP scenario (Responce code 200)
 
-![HTTP scenario]()
+![HTTP scenario](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/src16_zabbix_elb.PNG)
 
 Настроенный дашборд на каждую метрику на серверах (CPU, RAM, HTTP):
 
-![Dashdoards]()
+![Dashdoards](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/src17_zabbix_dasha.PNG)
 
 4. Логи (ELK):
 - Развернут Elasticsearch,
@@ -92,21 +120,21 @@ HTTP scenario (Responce code 200)
 - Настроен Filebeat на web-серверах.
 
 Файлы:
-- [filebeat.yml]()
+- [filebeat.yml](https://github.com/ssvssssvss/-DDL-DML-/blob/final/file/filebeat.yml)
 
 Скриншоты:
 
-Данные из Kibana Discover
+Успешный тест Elacticsearch:
 
-![Discover Kibana]()
+![elasticsearch test](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr21_elastic_status.PNG)
+
+Успешный запуск filebeat:
+
+![filebeat status](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/src19_filebeat_status.PNG)
 
 Логи nginx
 
-![nginx logs]()
-
-Индекс filebeat-*
-
-![index filebeat]() 
+![nginx logs](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/src20_elastic.PNG)
 
 5. Kibana:
 - Запущен через Docker:
@@ -135,9 +163,17 @@ URL: http://
 
 Скриншоты:
 
-![]()
+Развернутый бастион-хост и успешное подключение к нему:
 
-![]()
+![bastion](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr6_ssh_bastion.PNG)
+
+Подключение к серверам через bastion:
+
+![jump host](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr9_jumphost.PNG)
+
+Созданные подсети:
+
+![subnets](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr3_subnets.PNG)
 
 7. Резервное копирование:
 - Созданы snapshot дисков всех ВМ,
@@ -145,7 +181,9 @@ URL: http://
 
 Скриншоты:
 
-![]()
+Настроена политика ежедневного резервного копирования, хранение копии 7 дней:
+
+![cron snapshot](https://github.com/ssvssssvss/-DDL-DML-/blob/final/img/scr22_snapshoot.PNG)
 
 Итоги выполненной работы:
 - отказоустойчивый веб-сервис (2 VM + LB)
