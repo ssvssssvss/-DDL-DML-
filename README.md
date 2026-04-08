@@ -46,11 +46,11 @@
 
 Файлы Terraform:
 
-![Основной конфигурационный файл main.tf](https://github.com/ssvssssvss/-DDL-DML-/blob/final/terraform/main.tf)
+[Основной конфигурационный файл main.tf](https://github.com/ssvssssvss/-DDL-DML-/blob/final/terraform/main.tf)
 
-![Описание переменных в variables.tf](https://github.com/ssvssssvss/-DDL-DML-/blob/final/terraform/variables.tf)
+[Описание переменных в variables.tf](https://github.com/ssvssssvss/-DDL-DML-/blob/final/terraform/variables.tf)
 
-![Заданные переменные в terraform.tfvars](https://github.com/ssvssssvss/-DDL-DML-/blob/final/terraform/terraform.tfvars)
+[Заданные переменные в terraform.tfvars](https://github.com/ssvssssvss/-DDL-DML-/blob/final/terraform/terraform.tfvars)
 
 Скриншоты:
 
