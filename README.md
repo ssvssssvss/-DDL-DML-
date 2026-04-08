@@ -44,6 +44,14 @@
 - Kibana — визуализация логов (публичная сеть),
 - Application Load Balancer — доступ к сайту.
 
+Файлы Terraform:
+
+![Основной конфигурационный файл main.tf](https://github.com/ssvssssvss/-DDL-DML-/blob/final/terraform/main.tf)
+
+![Описание переменных в variables.tf](https://github.com/ssvssssvss/-DDL-DML-/blob/final/terraform/variables.tf)
+
+![Заданные переменные в terraform.tfvars](https://github.com/ssvssssvss/-DDL-DML-/blob/final/terraform/terraform.tfvars)
+
 Скриншоты:
 
 Созданная VPC:
